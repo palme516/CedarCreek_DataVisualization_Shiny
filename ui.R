@@ -1,4 +1,4 @@
-# Serengeti Data Visualization App
+# Cedar Creek Data Visualization App
 
 
 # User interface ---------------------------------
@@ -47,13 +47,14 @@ body <- dashboardBody(
             fluidRow(
                 box(width = 12,
                     h1("Cedar Creek Camera Traps"),
-                    "This dashboard facilitates exploration of the first five seasons of camera trap data 
-                    (Nov 2017-May 2019) the ", a(href= 'https://www.cedarcreek.umn.edu/', 'Cedar Creek Ecosystem Science Reserve'), " (East Bethel, MN; lat. 45°25’N, long. 126 93°10’W; 21 km2). These data are from
-                    97 cameras that were deployed in a 0.20-km2 grid and classified with the help of citizen 
-                    scientists on ", a(href='www.eyesonwild.com', "`Eyes on the Wild`."), "Data are generated
-                    and maintained by the lab group of Dr. ", a(href= 'https://cbs.umn.edu/isbell-biodiversity-lab/research', "Forest Isbell"), "at the University of Minnesota. For questions relating to accessing 
-                    data or metadata for collaboration, please contact ,", a(href = 'mailto:isbell@umn.edu', "Dr. Forest Isbell"), ". For questions relating to the functioning and use of this app, please contact ",
-                    a(href = 'mailto:palme516@umn.edu', 'Dr. Meredith Palmer.'))), 
+                    "This dashboard facilitates exploration of the first five seasons of camera trap data (Nov 2017-May 2019) the ", 
+                    a(href= 'https://www.cedarcreek.umn.edu/', 'Cedar Creek Ecosystem Science Reserve'), " (East Bethel, MN; lat. 
+                    45°25’N, long. 126 93°10’W; 21 km2). These data are from 97 cameras that were deployed in a 0.20-km2 grid and 
+                    classified with the help of citizen scientists on ", a(href='www.eyesonwild.com', "`Eyes on the Wild`."), "Data 
+                    are generated and maintained by the lab group of Dr. ", a(href= 'https://cbs.umn.edu/isbell-biodiversity-lab/research', "Forest Isbell"),
+                    "at the University of Minnesota. For questions relating to accessing data or metadata for collaboration, please 
+                    contact ,", a(href = 'mailto:isbell@umn.edu', "Dr. Forest Isbell"), ". For questions relating to the functioning 
+                    and use of this app, please contact ", a(href = 'mailto:palme516@umn.edu', 'Dr. Meredith Palmer.'))), 
             
             fluidRow(
                 box(width = 12,
@@ -108,7 +109,7 @@ tabItem(
            br(), 
            br(), 
            
-           strong("For deer, selection for horns/no antlers visible coming soon.")
+           strong("For deer, selection for antlers/no antlers visible coming soon.")
         ),
         
         box(

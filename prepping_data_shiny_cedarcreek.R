@@ -2,7 +2,6 @@ library(here); library(overlap); library(maptools); library(lubridate); library(
 
 # Import and merge data, covariates -----------------------------------------------
 
-setwd("~/Desktop/Grad School/Code/CedarCreek_Shiny")
 dat <- read.csv("EOTW_DataOutputwHabitat_JCproc12April.csv")
 dat <- dat[c("Easting", "Northing", "site_fixed", "season", "speciesID", "ModeHowMany", "ModeAntlers", 
              "ModeYoung", "ModeLyingDown", "ModeStanding", "ModeMoving", "ModeEating",
@@ -13,7 +12,7 @@ names(dat)[c(3:21)] <- c("site", "data.season", "species", "count", "antlers", "
                          "standing", "moving", "eating", "interacting", "biome", "habitat_class", 
                          "plant_community", "LULC_info", "date", "datetime", "temp.c", "moon.phase")
 dat$datetime <- strptime(dat$datetime, "%Y-%m-%d %H:%M:%S")
-dat <- dat[!is.na(dat$datetime),] #don't understand??? only 11 entries though so remove 
+dat <- dat[!is.na(dat$datetime),] #ugh, for some reason can't figure out, not converting; only 11 entries though so remove 
 dat$season <- ifelse(month(dat$datetime) %in% c(3:5), "Spring", 
                      ifelse(month(dat$datetime) %in% c(6:8), "Summer", 
                             ifelse(month(dat$datetime) %in% c(9:10), "Fall", "Winter"))) 
@@ -31,12 +30,17 @@ dat$delta.time.secs <- unlist(tapply(dat$datetime, INDEX = dat$index,
 coords <- matrix(c(-93.201772, 45.42505), nrow=1) %>%
   sp::SpatialPoints(proj4string=sp::CRS("+proj=longlat +datum=WGS84"))
 
-## CORRECT FOR NOT CORRECTING FOR TIME CHANGE (assuming that cameras were originally set to 'real time')
+## CORRECT FOR NOT CORRECTING FOR TIME CHANGE 
+# Cedar Creek camera traps are kept at one constant time throughout the year and do not change 
+# with daylight savings. HOWEVER, the functions used here rely on the camera trap timezone to 
+# correctly calculate sunrise/sunset. I have added back in the time changes throughout the years
+# so that these sun times are correct. I am assuming that cameras were originally set to 'real time').
+                                     
 # min(dat$datetime) == 2017-11-20; next time change is 11 March 2018 
 
-#--> for dates between 11-March-2018 and 4 Nov 2018 add +1 hour
+#--> for dates between 11-March-2018 and 4 Nov 2018, add +1 hour
 # times between 5 Nov 2018 - 9 March 2019 fine 
-#--> time between 10 March 2019 - max(dat$datetime) -- 15 May 2019 add +1 hour
+#--> time between 10 March 2019 - max(dat$datetime)== 15 May 2019, add +1 hour
 
 date.seq <- c(as.character(seq(as.Date("2018-03-11"), as.Date("2018-11-04"), 'days')), as.character(seq(as.Date("2019-03-10"), as.Date("2019-05-15"), 'day')))
 dat$date <- as.character(dat$date)

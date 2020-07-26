@@ -24,7 +24,7 @@ grid$site <- as.character(grid$site)
 dat <- read.csv("cleaned_data_for_shiny.csv")
 dat$date <- as.Date(dat$date)
 
-# C009/C009B; C085/C085B; C086/C086B; C098/C098B --> remove "B" sites
+# C009/C009B; C085/C085B; C086/C086B; C098/C098B --> remove "B" sites from wolf experiment
 dat <- dat[!dat$site %in% c("C009B", "C085B", "C086B", "C098B"),]
 dat$site <- factor(dat$site)
 

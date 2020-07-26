@@ -261,12 +261,12 @@ server <- function(input, output, session) {
     output$rai_metadata <- renderPlotly({
         ggplotly(ggplot(data = rai_metadata(),
                         aes_string(x = input$metadata_select, y = "RAI.det", label = "site")) +
-                     geom_point() +
+                     geom_boxplot() +
                      geom_smooth(method = "lm", col = "gray") +
                      theme_bw()
         )
     }) 
-    ### ^ update this so have choices of whether use counts or detections
+    ### nb: need to update this so have choices of whether use counts or detections
     
     # render a reactive graph with RAI every month
     output$monthly_rai_hist <- renderPlotly({
@@ -277,13 +277,14 @@ server <- function(input, output, session) {
                      theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
         )
     })
-    ### ^ update this so have choices of whether use counts or detections
+    ### nb: need to update this so have choices of whether use counts or detections
     
     # render a reactive graph with the activity patterns of the selected species
     output$activity_plot <- renderPlot({
         timeplot(records_subset()$Time.Sun)
     })
     
+             
 # DATASET COMPARISON -----------------------------
     
     # Subset based on widgets comparison ---------
@@ -339,7 +340,7 @@ server <- function(input, output, session) {
     # render a reactive graph with the activity patterns of the selected species
     output$activity_plot_compare <- renderPlot({
         overlapPlot2(records_subset_A()$Time.Sun, records_subset_B()$Time.Sun)
-        legend('top', c("Subset A", "Subset B"), lty=c(1,1), col = c("#F8766D", "#00BFC4"), bty='n')
+        legend('topleft', c("Subset A", "Subset B"), lty=c(1,1), col = c("#F8766D", "#00BFC4"), bty='n')
     })  
     
     # calculate overlap value
@@ -372,10 +373,11 @@ server <- function(input, output, session) {
     # render a reactive graph with side-by-side barplot
     output$rai_monthly_AB <- renderPlotly({
         ggplotly(ggplot(data = (monthly_rai_AB()),
-                        aes(x = Month, y = RAI.det, fill = Subset)) + ##UPDATE TO CHOICE COUNT 
+                        aes(x = Month, y = RAI.det, fill = Subset)) + 
                      geom_bar(stat = "identity", position = "dodge") +
                      scale_fill_manual(values=c("#F8766D", "#00BFC4")) +
                      theme(axis.text.x = element_text(angle = 45, hjust = 1)))
     })
+    ### nb: need to update so that can choose detections or counts for RAI         
     
 }
